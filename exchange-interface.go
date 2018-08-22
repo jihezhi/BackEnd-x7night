@@ -11,15 +11,8 @@ func main() {
 	if ok != nil {
 		fmt.Println(ok)
 	}
-
-	b := make([]byte, 8)
-
-	for {
-		num, err := file.Read(b)
-		if err == io.EOF {
-			break
-		}
-		fmt.Printf("%v", string(b[:num]))
+	if _, err := io.Copy(os.Stdout, file); err != nil {
+		fmt.Println(err)
 	}
 	file.Close()
 }
